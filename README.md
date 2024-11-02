@@ -91,3 +91,12 @@ yarn test
 ```
 
 This command will execute all tests in your project, ensuring your functions work as expected.
+
+
+### Note
+
+**If you are using Yarn, make sure your version is at least `1.22.22` to avoid compatibility issues with `cliui` when using ES Modules.** You can check your Yarn version with:
+
+```bash
+yarn --version
+```
