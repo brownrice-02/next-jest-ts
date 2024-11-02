@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js 14 + TypeScript + Jest Setup
 
-## Getting Started
+This guide walks you through setting up a Next.js 14 project with TypeScript and Jest for testing.
 
-First, run the development server:
+## Installation
+
+### Step 1: Install Next.js 14
+
+To create a new Next.js 14 project, use the following command:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@14 next-jest-ts
+cd next-jest-ts
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Step 2: Install Jest
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Add Jest and related libraries for TypeScript support:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+yarn add -D jest ts-jest ts-node jest-environment-jsdom
+```
+(Optional): Add Testing Libraries
+```bash
+yarn add -D @testing-library/react @testing-library/jest-dom
+```
 
-## Learn More
+### Step 3: Initialize Jest Configuration
 
-To learn more about Next.js, take a look at the following resources:
+Run the following command to initialize Jest configuration:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+yarn create-jest
+```
+![Jest configuration](./public/jest-config.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Step 4: Configure ts-jest (or Babel as an alternative)
 
-## Deploy on Vercel
+To enable TypeScript support in Jest, install `ts-jest`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+yarn add -D ts-jest
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Then, update `jest.config.ts` to include the following preset:
+
+```tsx
+preset: 'ts-jest',
+```
+
+### Step 5: Install Jest Types
+
+Install Jest type definitions:
+
+```bash
+yarn add -D @types/jest
+```
+
+## Writing Your First Test
+
+Let's create a simple function and a test to validate its functionality.
+
+1. Create a file, `addNumbers.tsx`, with the following content:
+    
+    ```tsx
+    export function addNumbers(a: number, b: number): number {
+        return a + b;
+    }
+    ```
+    
+2. Write a test in `addNumbers.test.tsx`:
+    
+    ```tsx
+    import { addNumbers } from './addNumbers';
+    
+    describe('addNumbers', () => {
+        it('should return 3 when adding 1 and 2', () => {
+            expect(addNumbers(1, 2)).toBe(3);
+        });
+    });
+    ```
+    
+
+## Running Tests
+
+Run your tests with:
+
+```bash
+yarn test
+```
+
+This command will execute all tests in your project, ensuring your functions work as expected.
